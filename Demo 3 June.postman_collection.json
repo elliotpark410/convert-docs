@@ -1,0 +1,662 @@
+{
+	"info": {
+		"_postman_id": "d2a0e970-08a0-4294-b85d-237bf2329608",
+		"name": "Demo 3 June",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23057421"
+	},
+	"item": [
+		{
+			"name": "Add MMI Pool",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{JAGAD_AUTH}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"mmi\",\n    \"display\": \"Money Market Instrument\",\n    \"description\": \"This pool fund is invested into Indonesian Money Market Instrument such as bank deposit and government bonds. This pool has minimal risk.\",\n    \"type\": 0,\n    \"risk_class\": 2,\n    \"risk_description\": \"This pool has minimal risk because bank deposits are guarantee by state insurance (LPS). For government bonds, Indonesia has BBB+ rating. All risk exposure will be tightly correlated with Indonesian Economy.\",\n    \"expected_annual_return\": 500,\n    \"is_private\": false,\n    \"program_id\": \"2rXhwHQYKY3WWBPKu7FfnM6R1MhhmexMpmb7ArMxw57P\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/pool/setup",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"pool",
+						"setup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add cFund Pool",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{JAGAD_AUTH}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"kfund\",\n    \"display\": \"Kimchi Fund\",\n    \"description\": \"The fund in this pool will be used for bitcoin arbitrage in Korea. This leverage price difference between BTC in Korea and the rest of the world due to Korea's strict capital outflow policy.\",\n    \"type\": 0,\n    \"risk_class\": 8,\n    \"risk_description\": \"This pool is risky. Primary risk comes from operation stategy we employed. Fund might stuck in Korea without a way get out.\",\n    \"expected_annual_return\": 50000,\n    \"is_private\": true,\n    \"program_id\": \"6ZzZPUQg2Dik4bHZi8xRxcFcLjXAAh1zVUhEojVKpCK5\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/pool/setup",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"pool",
+						"setup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get list of pools",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{DEFAULT_AUTH}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BASE_URL}}/pools?page=1&sort_by=expected_annual_return",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"pools"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "sort_by",
+							"value": "expected_annual_return"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Alice stake 500 to MMI",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{ALICE_AUTH}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"pool_uuid\": \"{{MMI_UUID}}\",\n    \"ui_amount\": 500\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/pool/stake",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"pool",
+						"stake"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Bob stake 150 to MMI",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{BOB_AUTH}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"pool_uuid\": \"{{MMI_UUID}}\",\n    \"ui_amount\": 150\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/pool/stake",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"pool",
+						"stake"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Alice stake 1000 to kFund",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{ALICE_AUTH}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"pool_uuid\": \"{{KFUND_UUID}}\",\n    \"ui_amount\": 1000\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/pool/stake",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"pool",
+						"stake"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Bob stake 750 to kFund",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{BOB_AUTH}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"pool_uuid\": \"{{KFUND_UUID}}\",\n    \"ui_amount\": 750\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/pool/stake",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"pool",
+						"stake"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Pool Balance",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/poolbalance",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"poolbalance"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Alice wants to unstake 400 from MMI",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{ALICE_AUTH}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"pool_uuid\": \"{{MMI_UUID}}\",\n    \"ui_amount\": 400\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/pool/unstake",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"pool",
+						"unstake"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Alice wants to unstake 250 from kfund",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{ALICE_AUTH}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"pool_uuid\": \"{{KFUND_UUID}}\",\n    \"ui_amount\": 250\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/pool/unstake",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"pool",
+						"unstake"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Alice check unstake request status",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{ALICE_AUTH}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BASE_URL}}/pool/unstake/my?sort_by=created_at",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"pool",
+						"unstake",
+						"my"
+					],
+					"query": [
+						{
+							"key": "status",
+							"value": "APPROVED",
+							"disabled": true
+						},
+						{
+							"key": "sort_by",
+							"value": "created_at"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin approves Alice 400",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"pool_uuid\": \"{{MMI_UUID}}\",\n    \"queue_uuid\": \"6dcec72c-ebf4-42d8-b2db-41033f5cffa0\",\n    \"action\": \"approve\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/pool/unstake/request",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"pool",
+						"unstake",
+						"request"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Bob wants to unstake 250 from kfund",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{BOB_AUTH}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"pool_uuid\": \"{{KFUND_UUID}}\",\n    \"ui_amount\": 250\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/pool/unstake",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"pool",
+						"unstake"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Bob check unstake request status",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{BOB_AUTH}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BASE_URL}}/pool/unstake/my?sort_by=-created_at",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"pool",
+						"unstake",
+						"my"
+					],
+					"query": [
+						{
+							"key": "sort_by",
+							"value": "-created_at"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin approves Bob 150",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"pool_uuid\": \"{{KFUND_UUID}}\",\n    \"queue_uuid\": \"70e26ea7-edc7-4e4e-a2ac-ccf23e1a9cc8\",\n    \"action\": \"approve\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/pool/unstake/request",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"pool",
+						"unstake",
+						"request"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin disburse to investee",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"pool_uuid\": \"{{MMI_UUID}}\",\n    \"wallet\": \"8GmHzaNXivwa66AutXbDPNoQoTwniBHLFPSZ18mDWWHy\",\n    \"ui_amount\": 150\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/pool/disburse",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"pool",
+						"disburse"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Revenue sharing - stage",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"pool_uuid\": \"{{MMI_UUID}}\",\n    \"start\": \"2022-08-02\",\n    \"end\": \"2022-08-31\",\n    \"amount\": 50000000000,\n    \"direction\": \"OUTFLOW\",\n    \"source\": \"cc76f7d4-8e53-4396-9d13-bd6a0f366aa7\",\n    \"redisburse\": false\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/pool/revenue/stage",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"pool",
+						"revenue",
+						"stage"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Revenue sharing - list",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{JAGAD_AUTH}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BASE_URL}}/pool/revenues?status=STAGED",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"pool",
+						"revenues"
+					],
+					"query": [
+						{
+							"key": "status",
+							"value": "STAGED"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Revenue sharing - detail",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/pool/revenue/{{REV_SHARE_UUID}}",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"pool",
+						"revenue",
+						"{{REV_SHARE_UUID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Revenue sharing - receivers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/pool/revenue/{{REV_SHARE_UUID}}/receivers?page=1",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"pool",
+						"revenue",
+						"{{REV_SHARE_UUID}}",
+						"receivers"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Revenue sharing - commit",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"uuid\": \"{{REV_SHARE_UUID}}\",\n    \"pool_uuid\": \"{{MMI_UUID}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/pool/revenue/commit",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"pool",
+						"revenue",
+						"commit"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,18 @@
+{
+  "name": "poas",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./index.js",
+    "docker-build": "docker build . -t garuda-docs",
+    "docker-run": "docker run -it --rm -dp 4567:80 garuda-docs",
+    "open": "start http://localhost:4567/",
+    "convert": "npm run start && npm run docker-build && npm run docker-run && npm run open"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "postman-to-openapi": "^2.4.0"
+  }
+}
