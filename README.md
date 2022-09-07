@@ -28,13 +28,11 @@ To run this application, I needed:
 
 * [NodeJS](https://nodejs.org/en/download/)
 
-
+* [npm postman-to-openapi](https://www.npmjs.com/package/postman-to-openapi)
 
 * [Docker](https://docs.docker.com/desktop/install/windows-install/)
 
-
 * [Ubuntu on WSL2 for Windows 11](https://ubuntu.com/tutorials/install-ubuntu-on-wsl2-on-windows-11-with-gui-support#1-overview)
-
 
 * [ReDoc Docker Image instructions](https://hub.docker.com/r/redocly/redoc/)
 

@@ -1,12 +1,16 @@
-const postmanToOpenApi = require('postman-to-openapi'); // Postman Magic
+// Require postman to openAPI module for conversion 
+const postmanToOpenApi = require('postman-to-openapi'); 
+
+// Require file system module to get postman collection in cd
 const fs = require('fs');
 
+// function to get postman collection
 function getPostmanCollection() {
-    // Global scope, never use `var` use `let` or `const` instead.
-    // EP: Reads the Contents of Current Directory
+ 
+    // Reads the contents of current directory
     const files = fs.readdirSync('./')
     
-    // EP: Get File Name with "postman_collection.json"
+    // Gets file name with "postman_collection.json"
     for (let i = 0; i < files.length; i++) {
       if (files[i].includes("postman_collection.json")) {
         console.log('Postman Collection file: ' + files[i])
@@ -16,21 +20,26 @@ function getPostmanCollection() {
 }
 
 async function main() {
+    // postmanCollection = file name with "postman_collection.json"
     const postmanCollection = getPostmanCollection();
     
-    // EP: Console Error if File With "postman_collection.json" is Not in Current Directory
+    // Console error if File With "postman_collection.json" is Not in Current Directory
     if (postmanCollection === undefined) {
-      console.error("File name including 'postman_collection.json' not found in current directory")
+      console.error("File with 'postman_collection.json'")
     }
     
-    // Output OpenAPI Path
+    // Converted output file is output.yaml in current directory
     const outputFile = './output.yaml'
     
-    // Async/await
-    // Promise callback style
-    return await postmanToOpenApi(postmanCollection, outputFile, { defaultTag: 'General' });
+
+    // Promise callback style (directly from 'https://www.npmjs.com/package/postman-to-openapi')
+    return await postmanToOpenApi(postmanCollection, outputFile, { defaultTag: 'General' })
+    .then(result => {
+        console.log(`OpenAPI specs: ${result}`)
+    })
+    .catch(err => {
+        console.log(err)
+    })
 }
 
 main()
-    .then(console.log)
-    .catch(console.error);

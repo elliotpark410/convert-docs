@@ -1,7 +1,5 @@
 To Do List
--add comments to code
--debug 
--get write access to garuda/jagad repo
+-get write access to1 garuda/jagad repo
 
 
 Debug list
