@@ -1968,7 +1968,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    'company_name': \"PT Ludica Sentosa\",\n    'company_registration_date': \"03/10/1920\", # dd/mm/yyyy\n    'employee_numbers': 30, # integer\n    'annual_sales': 100000000, # rupiah\n    'annual_profit': 1000000, # rupiah\n    'industry_classification': '[36601,36602,36603]',\n    'director_names': '[Satoshi Nakamoto, Zaenadin Zidan]',\n    'commisionaire_names': '[Christiano Ronaldo, Ferguson, Lionel Messi]',\n}"
+											"raw": "{\n    \"company_name\": \"PT Ludica Sentosa\",\n    \"company_registration_date\": \"03/10/1920\", \n    \"employee_numbers\": 30,\n    \"annual_sales\": 100000000,\n    \"annual_profit\": 1000000,\n    \"industry_classification\": \"[36601,36602,36603]\",\n    \"director_names\": \"[Satoshi Nakamoto, Zaenadin Zidan]\",\n    \"commisionaire_names\": \"[Christiano Ronaldo, Ferguson, Lionel Messi]\"\n}"
 										},
 										"url": {
 											"raw": "{{url}}/profile",
@@ -2490,7 +2490,7 @@
 										}
 									],
 									"cookie": [],
-									"body": "{\n    \"id\": 9511,\n    \"code\": 111,\n    \"blockchain_tx_id\": \"3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v\",\n    \"network\": \"solana\",\n    \"name\": \"transfer\",\n    \"to\": \"ACshsLnX77Vu5mR3wqJi3dhQcKm19DqPr2hRHBzZ8esi\",\n    \"from\": \"3bwgQC9vdCbss3p1a59ZYXtAyDAyBaVVLSN3kjM4kGzY\",\n    \"timestamp\": 1657511255,\n    \"amount\": 500000000000,\n    \"ui_amount\": 500,\n    \"unit\": \"gidr\",\n}"
+									"body": "{\n    \"id\": 9511,\n    \"code\": 111,\n    \"blockchain_tx_id\": \"3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v\",\n    \"network\": \"solana\",\n    \"name\": \"transfer\",\n    \"to\": \"ACshsLnX77Vu5mR3wqJi3dhQcKm19DqPr2hRHBzZ8esi\",\n    \"from\": \"3bwgQC9vdCbss3p1a59ZYXtAyDAyBaVVLSN3kjM4kGzY\",\n    \"timestamp\": 1657511255,\n    \"amount\": 500000000000,\n    \"ui_amount\": 500,\n    \"unit\": \"gidr\"\n}"
 								},
 								{
 									"name": "Transfer GIDR - Failed",
