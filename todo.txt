@@ -1,0 +1,14 @@
+To Do List
+-add comments to code
+-debug 
+-get write access to garuda/jagad repo
+
+
+Debug list
+-the docs don't update automatically in localhost, if I use the same port it will show the old doc
+-alwhen I run script "npm run convert" after the first time, I get this error "docker: Error response from daemon: driver failed programming external connectivity on endpoint dreamy_hermann (30cac2f8dcdaf73c6f81ae609997f97c518edce1cac934fdf37cbb9bce20e0f8): Bind for 0.0.0.0:4567 failed: port is already allocated."
+-v1.collection.json gets this error "TypeError: Cannot read properties of undefined (reading 'raw')". It has something to do with the User Profile / Create Profile POST method. FIXED. In Postman, Create Profile body is not in JSON format
+-v1.collection.json gets this error "Error: Error parsing response example "Transfer GIDR - Success"". It has something to do with the User Wallet
+
+
+

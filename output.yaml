@@ -1,0 +1,1114 @@
+openapi: 3.0.0
+info:
+  title: v1
+  description: >-
+    Welcome to Garuda Stablecoin API Docs.
+
+    This document is for internal use only. You are prohibited from sharing all
+    contents of this documents to any external third party without Elbert's /
+    Dendi's permission.
+
+
+    All endpoints return either a JSON object or array regardless of success /
+    error response.
+
+
+    Note: All request headers `x-mock-*` are postman related. Please disregard
+    this headers in your code.
+
+
+    This API docs is still a draft. Thus, if you spot any mistake, typo, or just
+    something what wouldn't make sense, let me (Elbert) know. Example of things
+    that doesn't make sense:
+
+    1. Double slash in endpoint.
+
+    2. Different parameter name between request body and `parameters` table.
+
+    3. Inconsistencies (e.g. variable or parameter name), typo, etc.
+
+
+
+    # Notes on GET request
+
+
+    #### Sorting
+
+    User can sort by adding _get paramaters_ such as
+    `/pool/unstake/my?sort_by=date_created` for sorting by date created
+    ascending wise and `/pool/unstake/my?sort_by=-date_created` for descending.
+    Every field returned by the API can be sorted.
+
+
+    #### Filtering
+
+    User can filter their request by adding _get parameters_ such as
+    `/pool/unstake/my?status=APPROVED`.
+
+
+    #### Paging
+
+    User can request which page to return, by adding _page_ in _get parameters_,
+    such as `/pool/unstake/my?page=1`.
+
+
+    # Notes on `amount` and `ui_amount`
+
+    When sending amount to any APIs, client can either send `ui_amount` or
+    `amount`. The difference is, `amount` should factor in all 9 decimals in
+    GIDR. For example, if you want to transfer 1000 GIDR, you should stated the
+    amount as `1000000000000` (twelve zeroes). Or, to make it easier, you could
+    set `ui_amount` to 1000. It is the same thing.
+
+
+    However, you MUST NEVER SEND DECIMAL with `ui_amount`. The conversion will
+    not be accurate to to float precision point. For example, sending
+
+
+    ```json
+
+    {
+      "ui_amount": 9223372036.854775807
+    }
+
+    ```
+
+
+    will return the following:
+
+    ```json
+
+    {
+        "amount": "9223372036854779904",
+        "ui_amount": "9223372036.85478"
+    }
+
+    ```
+  version: 1.0.0
+servers:
+  - url: http://{{url}}
+tags:
+  - name: User
+    description: This APIs are accessible by all Jagad's user as part of the service.
+  - name: User > Profile
+    description: These API group handle all data related to user's profile.
+  - name: Admin
+    description: These APIs are only accessible by Jagad's admin team and watchers.
+  - name: Admin > Pools
+  - name: Programmatic
+paths:
+  /profile:
+    get:
+      tags:
+        - User > Profile
+      summary: Retrieve/Get Profile
+      responses:
+        undefined:
+          content:
+            text/plain:
+              schema:
+                type: string
+              examples:
+                example-0:
+                  summary: Retrieve/Get Profile - Success
+                  value: null
+                example-1:
+                  summary: Retrieve/Get Profile - Error
+                  value: |-
+                    {
+                        "statusCode": 400,
+                        "error": {
+                            "message": "Field 'profile_uuid' is missing."
+                        },
+                        "name": "BadRequest"
+                    }
+    put:
+      tags:
+        - User > Profile
+      summary: Update Profile
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: string
+              example: >-
+                "{\n    'employee_numbers': 70, # integer\n    'annual_sales':
+                500000000, # rupiah\n}"
+      responses:
+        undefined:
+          content:
+            text/plain:
+              schema:
+                type: string
+              examples:
+                example-0:
+                  summary: Update Profile - Success
+                  value: null
+                example-1:
+                  summary: Update Profile - Error
+                  value: |-
+                    {
+                        "statusCode": 400,
+                        "error": {
+                            "message": "Field 'profile_uuid' is missing."
+                        },
+                        "name": "BadRequest"
+                    }
+    delete:
+      tags:
+        - User > Profile
+      summary: Delete Profile
+      responses:
+        undefined:
+          content:
+            text/plain:
+              schema:
+                type: string
+              examples:
+                example-0:
+                  summary: Delete Profile - Success
+                  value: |-
+                    {
+                        "message": "profile deletion success",
+                    }
+                example-1:
+                  summary: Delete Profile - Error
+                  value: |-
+                    {
+                        "statusCode": 400,
+                        "error": {
+                            "message": "Field 'profile_uuid' is missing."
+                        },
+                        "name": "BadRequest"
+                    }
+  /pool/unstake/request:
+    post:
+      tags:
+        - Admin > Pools
+      summary: Approve unstake request
+      description: >-
+        Approve or reject unstake request. If request is approved, exchange of
+        cToken and GIDR will happen.
+
+
+        #### Parameters
+
+
+        | Parameter | Required | Type | Value | Description |
+
+        | --- | --- | --- | --- | --- |
+
+        | pool_uuid | true | string | 1837dd24-0d7a-4ddc-af9a-9384f5807915 |
+        Pool's uuid |
+
+        | queue_uuid | true | string | cff2765a-8216-499c-9387-49ddd8f361a5 |
+        Queue uuid |
+
+        | action | true | string | approve / reject | String to pick action |
+
+
+
+        #### Action
+
+        | Value | Description |
+
+        | --- | --- |
+
+        | approve | Approve the request. |
+
+        | reject | Reject the request. |
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                pool_uuid: 2f391549-d3e0-4d39-9245-515c0d99c4fb
+                queue_uuid: de044268-6e84-4f09-b626-2c885e03379f
+                action: approve
+      parameters:
+        - name: x-mock-match-request-body
+          in: header
+          schema:
+            type: boolean
+          example: 'true'
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: Bearer <access_token>
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                pool_uuid: 2f391549-d3e0-4d39-9245-515c0d99c4fb
+                queue_uuid: de044268-6e84-4f09-b626-2c885e03379f
+                user_wallet: 9RSXWuo2fvGLU85SsK5YJsNuDhm9VBdKf4mZqHDMMAm5
+                amount: 400000000000
+                status: approved
+                date_created: 1656143188611
+                date_decision: 1656209689233
+        '400':
+          description: Bad Request
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                statusCode: 400
+                error:
+                  message: User does not have enough balance.
+                name: NotEnoughBalance
+        '404':
+          description: Not Found
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                statusCode: 404
+                error:
+                  message: Failed to get queue.
+                name: NotFoundError
+  /pool/setup:
+    post:
+      tags:
+        - Admin > Pools
+      summary: Create pool
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                name: mmi
+                display: Money Market Instrument
+                description: >-
+                  This pool fund is invested into Indonesian Money Market
+                  Instrument such as bank deposit and government bonds. This
+                  pool has minimal risk.
+                type: 0
+                risk_class: 2
+                risk_description: >-
+                  This pool has minimal risk because bank deposits are guarantee
+                  by state insurance (LPS). For government bonds, Indonesia has
+                  BBB+ rating. All risk exposure will be tightly correlated with
+                  Indonesian Economy.
+                expected_annual_return: 500
+                is_private: false
+                program_id: 2rXhwHQYKY3WWBPKu7FfnM6R1MhhmexMpmb7ArMxw57P
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: Bearer <access_token>
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/json
+        - name: x-mock-match-request-body
+          in: header
+          schema:
+            type: boolean
+          example: 'true'
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                example-0:
+                  summary: Create pool - Success
+                  value:
+                    id: 1
+                    pool_uuid: b402a691-b50f-4442-91ef-8db5da58db4f
+                    program_id: 2rXhwHQYKY3WWBPKu7FfnM6R1MhhmexMpmb7ArMxw57P
+                    name: mmi
+                    display: Money Market Instrument
+                    type: 0
+                    description: >-
+                      This pool fund is invested into Indonesian Money Market
+                      Instrument such as bank deposit and government bonds. This
+                      pool has minimal risk.
+                    risk_class: 2
+                    risk_description: >-
+                      This pool has minimal risk because bank deposits are
+                      guarantee by state insurance (LPS). For government bonds,
+                      Indonesia has BBB+ rating. All risk exposure will be
+                      tightly correlated with Indonesian Economy.
+                    expected_annual_return: 500
+                    is_private: false
+                    publish_status: DRAFT
+                    created_at: '2022-08-03T14:42:00.000Z'
+                    updated_at: '2022-08-03T14:42:00.000Z'
+                example-1:
+                  summary: Create pool - Error - program not dep
+                  value:
+                    statusCode: 400
+                    error:
+                      message: Program is not deployed
+                    name: ValidationError
+                example-2:
+                  summary: Create pool - Error - duplicate name
+                  value:
+                    statusCode: 400
+                    error:
+                      message: Pool kfund already exists.
+                    name: ValidationError
+  /pool/2f391549-d3e0-4d39-9245-515c0d99c4fb:
+    post:
+      tags:
+        - Admin > Pools
+      summary: Update pool
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                display: Money Market Instrument For Real
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: Bearer <access_token>
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/json
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                pool_uuid: b402a691-b50f-4442-91ef-8db5da58db4f
+                program_id: 2rXhwHQYKY3WWBPKu7FfnM6R1MhhmexMpmb7ArMxw57P
+                name: mmi
+                display: Money Market Instrument For Real
+                type: 0
+                description: >-
+                  This pool fund is invested into Indonesian Money Market
+                  Instrument such as bank deposit and government bonds. This
+                  pool has minimal risk.
+                risk_class: 2
+                risk_description: >-
+                  This pool has minimal risk because bank deposits are guarantee
+                  by state insurance (LPS). For government bonds, Indonesia has
+                  BBB+ rating. All risk exposure will be tightly correlated with
+                  Indonesian Economy.
+                expected_annual_return: 500
+                is_private: false
+                publish_status: DRAFT
+                created_at: '2022-08-03T14:42:00.000Z'
+                updated_at: '2022-08-03T14:42:00.000Z'
+        '404':
+          description: Not Found
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                statusCode: 404
+                error:
+                  message: Pool is not found.
+                name: NotFoundError
+    delete:
+      tags:
+        - Admin > Pools
+      summary: Delete pool
+      responses:
+        '204':
+          description: No Content
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: null
+        '404':
+          description: Not Found
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: |-
+                {
+                    "statusCode": 404,
+                    "error": {
+                        "message": "Pool is not found."
+                    },
+                    "name": "NotFoundError"
+                }
+  /pool/disburse:
+    post:
+      tags:
+        - Admin > Pools
+      summary: Disburse
+      description: >-
+        Disburse pool's GIDR to a wallet. Wallet holder could be:
+
+
+        1.  Asset management, in the context of MMI.
+
+        2.  Scholarship receiver, in the context of scholarship pool.
+            
+
+        This is usually used in pool without governance, thus, disbursement is
+        done  
+
+        by Jagad's admin.
+
+
+        #### Parameters
+
+
+        | Parameter | Required | Type | Value | Description |
+
+        | --- | --- | --- | --- | --- |
+
+        | pool_uuid | true | string | 10ec89be-ee28-45b6-996f-074f4cc653a4 |
+        Pool's UUID |
+
+        | wallet | true | string | 9RSXWuo2fvGLU85SsK5YJsNuDhm9VBdKf4mZqHDMMAm5
+        | Wallet address to receive fund |
+
+        | amount | true | number | 2050000000000 | Amount of GIDR to disbursed
+        with full 9 decimals |
+
+
+
+        #### Errors
+
+        _invalid wallet_
+
+        Wallet could be invalid due to several reasons:
+
+        1. Wallet has invalid address
+
+        2. Wallet is not registered
+
+        3. Wallet doesn't have the right role for the pool.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                pool_uuid: 2f391549-d3e0-4d39-9245-515c0d99c4fb
+                wallet: 8GmHzaNXivwa66AutXbDPNoQoTwniBHLFPSZ18mDWWHy
+                amount: 2050000000000
+      parameters:
+        - name: x-mock-match-request-body
+          in: header
+          schema:
+            type: boolean
+          example: 'true'
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                example-0:
+                  summary: Disburse - Success
+                  value:
+                    pool_uuid: 2f391549-d3e0-4d39-9245-515c0d99c4fb
+                    wallet: 9RSXWuo2fvGLU85SsK5YJsNuDhm9VBdKf4mZqHDMMAm5
+                    amount: 2050000000000
+                    network: solana
+                example-1:
+                  summary: Disburse - Error - pool has inssuficient fund
+                  value:
+                    statusCode: 400
+                    error:
+                      message: Insufficient funds.
+                    name: NotEnoughBalance
+        '400':
+          description: Bad Request
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                example-0:
+                  summary: Disburse - Error - incorrect role
+                  value:
+                    statusCode: 400
+                    error:
+                      message: >-
+                        Wallet 9RSXWuo2fvGLU85SsK5YJsNuDhm9VBdKf4mZqHDMMAm5 must
+                        be registered as 'investee' in mmi pool, otherwise it
+                        cannot receive fund.
+                    name: PoolIncorrectRole
+                example-1:
+                  summary: Disburse - Error - user not registered
+                  value:
+                    statusCode: 400
+                    error:
+                      message: >-
+                        Wallet 9RSXWuo2fvGLU85SsK5YJsNuDhm9VBdKf4mZqHDMMAm6 is
+                        not registered. Please check again.
+                    name: NotRegistered
+  /pool/revenue/stage:
+    post:
+      tags:
+        - Admin > Pools
+      summary: Revenue sharing - stage
+      description: >-
+        This endpoint create a revenue sharing record in our database, but do
+        not commit. The backend simply calculate.
+
+
+        This gives admin a chance to see the calculation result before
+        committing the revenue distribution.
+
+
+        This API returns _commit_id_, which in turn can be used to retrieve the
+        detail about this revenue sharing, such as total, list of users and
+        their portion, status, etc.
+
+
+
+        #### Parameters
+
+
+        | Parameter | Required | Type | Value | Description |
+
+        | --- | --- | --- | --- | --- |
+
+        | pool_uuid | true | string | 2f391549-d3e0-4d39-9245-515c0d99c4fb |
+        Pool's uuid |
+
+        | start | true | string | "2022-08-01" | YYYY-MM-DD string for date. |
+
+        | end | true | string | "2022-08-31 | YYYY-MM-DD string for date. |
+
+        | amount | false | number | 1000000000 | amount with full decimal. If
+        `ui_amount` is not provided, this field is mandatory |
+
+        | ui_amount | false | number | 1000 | Amount in UI friendly format. This
+        field is mandatory if `amount` is not provided. |
+
+
+        `amount` and `ui_amount` cannot co-exists.
+
+
+
+        #### Errors
+
+        Upon receiving this error:
+
+        ```
+
+        {
+            "statusCode": 400,
+            "error": {
+                "message": "End date cannot be more than today.",
+                "detail": {
+                    "end": "2022-08-31"
+                }
+            },
+            "name": "ValidationError"
+        }
+
+        ```
+
+
+        The detail contain a suggested date, either an `end` date or a `start`
+        date.
+
+
+        If `end` date is in the future, the system will suggest today's date.
+
+
+        If `start` date overlap with previous revenue sharing, the system will
+        suggest, the next date (d + 1) of the previous revenue sharing.
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: string
+              example: >-
+                "{\n    \"pool_uuid\":
+                \"2f391549-d3e0-4d39-9245-515c0d99c4fb\",\n    \"start\":
+                \"2022-08-01\",\n    \"end\": \"2022-08-31\",\n    \"amount\":
+                1000000000000,\n    \"direction\": \"INFLOW\"\n}"
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/json
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: Bearer <access_token>
+        - name: x-mock-match-request-body
+          in: header
+          schema:
+            type: boolean
+          example: 'true'
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                uuid: 4a4c3180-e790-425c-adc0-f56a5239c267
+                pool_id: 1
+                pool_uuid: 2f391549-d3e0-4d39-9245-515c0d99c4fb
+                direction: INFLOW
+                amount: 100000000000
+                ui_amount: 100
+                start: 20220801
+                end: 20220831
+                timestamp: 1659414392
+                status: STAGED
+        '400':
+          description: Bad Request
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                example-0:
+                  summary: Revenue sharing - stage - Error - invalid start period
+                  value:
+                    statusCode: 400
+                    error:
+                      message: >-
+                        Start date cannot overlap with previous revenue sharing
+                        period.
+                      detail:
+                        start: '2022-08-01'
+                    name: ValidationError
+                example-1:
+                  summary: Revenue sharing - stage - Error - invalid end period
+                  value:
+                    statusCode: 400
+                    error:
+                      message: End date cannot be more than today.
+                      detail:
+                        end: '2022-08-31'
+                    name: ValidationError
+  /pool/revenues:
+    get:
+      tags:
+        - Admin > Pools
+      summary: Revenue sharing - list
+      description: >-
+        This endpoint return a list of all registered revenue sharing, `STAGED`
+        and `COMMITTED`. Filtering, sorting, paging, applies as usual.
+
+
+        User will only get their associated pool where he / she is the manager
+        of said pool. Cannot cross pool.
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: Bearer <access_token>
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                page: 1
+                last_page: 10
+                total_hits: 250
+                result:
+                  - id: 1
+                    uuid: 4a4c3180-e790-425c-adc0-f56a5239c267
+                    pool_id: 1
+                    pool_uuid: 2f391549-d3e0-4d39-9245-515c0d99c4fb
+                    direction: INFLOW
+                    amount: 100000000000
+                    ui_amount: 100
+                    start: 20220801
+                    end: 20220831
+                    timestamp: 1659414392
+                    status: STAGED
+                  - id: 2
+                    uuid: 4a4c3180-e790-425c-adc0-f56a5239c262
+                    pool_id: 1
+                    pool_uuid: 2f391549-d3e0-4d39-9245-515c0d99c4fb
+                    direction: INFLOW
+                    amount: 100000000000
+                    ui_amount: 100
+                    start: 20220801
+                    end: 20220831
+                    timestamp: 1659414392
+                    status: COMMITTED
+  /pool/revenue/4a4c3180-e790-425c-adc0-f56a5239c266:
+    get:
+      tags:
+        - Admin > Pools
+      summary: Revenue sharing  - detail
+      description: |-
+        This API returns detail about revenue sharing, identified with its UUID.
+
+
+        #### Endpoint
+        `/pool/revenue/<rev_share_uuid>`
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: Bearer <access_token>
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/json
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                example-0:
+                  summary: Revenue sharing  - detail - Success
+                  value:
+                    id: 1
+                    uuid: 4a4c3180-e790-425c-adc0-f56a5239c267
+                    pool_id: 1
+                    pool_uuid: 2f391549-d3e0-4d39-9245-515c0d99c4fb
+                    direction: INFLOW
+                    amount: 100000000000
+                    ui_amount: 100
+                    start: 20220801
+                    end: 20220831
+                    timestamp: 1659414392
+                    status: STAGED
+                example-1:
+                  summary: Revenue sharing  - detail - Error - not found
+                  value:
+                    statusCode: 404
+                    error:
+                      message: Revenue sharing is not found.
+                    name: NotFoundError
+  /pool/revenue/4a4c3180-e790-425c-adc0-f56a5239c267/receivers:
+    get:
+      tags:
+        - Admin > Pools
+      summary: Revenue Sharing - receivers
+      description: >-
+        This endpoint lists all receivers that are bound to receive the revenue
+        share when committed.
+
+
+        This endpoint is used to double check the list of receivers before admin
+        commit the revenue share.
+
+
+
+        #### Endpoint
+
+        `/pool/revenue/<rev_share_uuid>/receivers`
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: Bearer <access_token>
+        - name: x-mock-match-request-body
+          in: header
+          schema:
+            type: boolean
+          example: 'true'
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                example-0:
+                  summary: Revenue Sharing - receivers - Success
+                  value:
+                    page: 1
+                    last_page: 10
+                    total_hits: 250
+                    result:
+                      - profile:
+                          id: 1
+                          phone_number: '081113560178'
+                          wallet: 9RSXWuo2fvGLU85SsK5YJsNuDhm9VBdKf4mZqHDMMAm5
+                        pool_uuid: 4a4c3180-e790-425c-adc0-f56a5239c267
+                        direction: INFLOW
+                        amount: 600000000000
+                        ui_amount: 600
+                        created_at: 1657511155
+                      - profile:
+                          id: 2
+                          phone_number: '08151369878'
+                          wallet: 2wY1UbwmS2ZqdiJbst74K1XJmCQGhoU2wyV6jGTuvAka
+                        pool_uuid: 4a4c3180-e790-425c-adc0-f56a5239c267
+                        direction: INFLOW
+                        amount: 400000000000
+                        ui_amount: 400
+                        created_at: 1657511155
+                example-1:
+                  summary: Revenue Sharing - receivers - empty
+                  value:
+                    page: 1
+                    last_page: 1
+                    total_hits: 0
+                    result: []
+        '404':
+          description: Not Found
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                statusCode: 404
+                error:
+                  message: Revenue sharing uuid is not found.
+                name: NotFoundError
+  /pool/revenue/commit:
+    post:
+      tags:
+        - Admin > Pools
+      summary: Revenue sharing - commit
+      description: >-
+        When committing, backend will check for several things:
+
+        1. Period is valid
+
+        2. Pool has the cToken to distribute
+
+        3. Garuda has the GIDR to distribute
+
+
+        This API commit staged revenue share. This means it will execute
+        transaction and distribute pool's cToken. Any failure to distribute will
+        then be saved to another database for manual reconciliation.
+
+
+        #### Parameters
+
+
+        | Parameter | Required | Type | Value | Description |
+
+        | --- | --- | --- | --- | --- |
+
+        | commit uuid | true | string | 4a4c3180-e790-425c-adc0-f56a5239c267 |
+        Commit's uuid. You get this when staging the revenue sharing. |
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: string
+              example: >-
+                "{\n    \"uuid\": \"4a4c3180-e790-425c-adc0-f56a5239c268\",\n   
+                \"pool_uuid\": \"207d9f96-57b3-4bbf-90f1-d6feaae88739\"\n}"
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: Bearer <access_token>
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/json
+        - name: x-mock-match-request-body
+          in: header
+          schema:
+            type: boolean
+          example: 'true'
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                uuid: 4a4c3180-e790-425c-adc0-f56a5239c267
+                pool_id: 1
+                pool_uuid: 2f391549-d3e0-4d39-9245-515c0d99c4fb
+                direction: INFLOW
+                amount: 100000000000
+                ui_amount: 100
+                start: 20220801
+                end: 20220831
+                timestamp: 1659414392
+                committed_at: 1659414393
+                status: COMMITED
+        '404':
+          description: Not Found
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                statusCode: 404
+                error:
+                  message: Revenue sharing uuid is not found.
+                name: NotFoundError
+  /wallet/convert/callback:
+    get:
+      tags:
+        - Programmatic
+      summary: Convert - Callback
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /wallet/va-in:
+    post:
+      tags:
+        - Programmatic
+      summary: Webhook - Virtual Account Callback
+      description: >-
+        This endpoint is to be called when there's money incoming in the virtual
+        account.
+
+
+        Request body follow the provider. For example, Stripe will have
+        different format compared to other providers.
+
+
+        Backend handler must be able to handle supported provider.
+
+
+        This endpoint transfer GIDR to the associated user. If called
+        successfully, will return `204 No Content`.
+      requestBody:
+        content: {}
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: ApiKey <api_key_access>
+        - name: provider
+          in: query
+          schema:
+            type: string
+          example: stripe
+      responses:
+        '204':
+          description: No Content
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: null

@@ -68,6 +68,7 @@ sudo docker run -it --rm -p 80:80 -v /mnt/{{pwd}}/:/usr/share/nginx/html/swagger
 ```
 
 * Screenshot of ReDoc image commands in Ubuntu 
+
 <img src="Images\ReDoc-Docker-Image-screenshots.png" title="Screenshot of Ubuntu terminal with ReDoc Docker Image commands">
 
 
