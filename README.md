@@ -67,8 +67,8 @@ sudo docker run -it --rm -p 80:80 -v /mnt/{{pwd}}/output.yaml:/usr/share/nginx/h
 sudo docker run -it --rm -p 80:80 -v /mnt/{{pwd}}/:/usr/share/nginx/html/swagger -e SPEC_URL=swagger/output.yaml redocly/redoc
 ```
 
-* Screenshot of commands in Ubuntu 
-![Screenshot of Ubuntu commands](Images\ReDoc-Docker-Image-screenshots.png)
+* Screenshot of ReDoc image commands in Ubuntu 
+<img src="Images\ReDoc-Docker-Image-screenshots.png" title="Screenshot of Ubuntu terminal with ReDoc Docker Image commands">
 
 
 
