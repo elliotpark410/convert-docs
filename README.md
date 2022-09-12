@@ -17,7 +17,15 @@ and
 npm run convert
 `
 
-then your browser will open http://localhost:4567/ with a preview 
+then your browser will open http://localhost:4444/ with a preview 
+
+<br>
+
+After running  `npm run convert`, make sure to remove the container before running it again. You can run this in command line to remove the container: 
+
+`
+ docker rm -f $(docker ps -aqf "ancestor=garuda-docs-v1")
+`
 
 <br>
 

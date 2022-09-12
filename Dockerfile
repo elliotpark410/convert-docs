@@ -16,7 +16,7 @@ COPY output.yaml /usr/share/nginx/html/swagger.yaml
 
 # EXPOSE tells Docker that my webserver will listen on port 4567
 # ?? not sure if it is needed
-EXPOSE 4567
+EXPOSE 80
 
 
 # Docker commands

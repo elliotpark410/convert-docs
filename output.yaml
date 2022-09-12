@@ -87,7 +87,6 @@ info:
   version: 1.0.0
 servers:
   - url: http://{{url}}
-  - url: https://36cb018b-d93c-476c-b28a-6abb5bc0957a.mock.pstmn.io
 tags:
   - name: User
     description: This APIs are accessible by all Jagad's user as part of the service.
@@ -1127,18 +1126,18 @@ paths:
       summary: Create Profile
       requestBody:
         content:
-          application/json:
+          '*/*':
             schema:
-              type: object
-              example:
-                company_name: PT Ludica Sentosa
-                company_registration_date: 03/10/1920
-                employee_numbers: 30
-                annual_sales: 100000000
-                annual_profit: 1000000
-                industry_classification: '[36601,36602,36603]'
-                director_names: '[Satoshi Nakamoto, Zaenadin Zidan]'
-                commisionaire_names: '[Christiano Ronaldo, Ferguson, Lionel Messi]'
+              type: string
+              example: >-
+                "{\n    'company_name': \"PT Ludica Sentosa\",\n   
+                'company_registration_date': \"03/10/1920\", # dd/mm/yyyy\n   
+                'employee_numbers': 30, # integer\n    'annual_sales':
+                100000000, # rupiah\n    'annual_profit': 1000000, # rupiah\n   
+                'industry_classification': '[36601,36602,36603]',\n   
+                'director_names': '[Satoshi Nakamoto, Zaenadin Zidan]',\n   
+                'commisionaire_names': '[Christiano Ronaldo, Ferguson, Lionel
+                Messi]',\n}"
       responses:
         undefined:
           content:

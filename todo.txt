@@ -4,15 +4,13 @@ To Do List
 
 
 Debug list
--the docs don't update automatically in localhost, if I use the same port it will show the old doc. Need to kill old port 
--alwhen I run script "npm run convert" after the first time, I get this error "docker: Error response from daemon: driver failed programming external connectivity on endpoint dreamy_hermann (30cac2f8dcdaf73c6f81ae609997f97c518edce1cac934fdf37cbb9bce20e0f8): Bind for 0.0.0.0:4567 failed: port is already allocated."
--in Demo 3 June.postman, the preview does not show section 'Add MMI Pool'
+-having difficulty creating script to remove container
 
 
 Fixed list
--Error: In v1.collection.json when running node index.js: "TypeError: Cannot read properties of undefined (reading 'raw')". It has something to do with the User Profile / Create Profile POST method. -Fix: In Postman, Create Profile body is not in JSON format
+-Error: In v1.collection.json when running node index.js: "TypeError: Cannot read properties of undefined (reading 'raw')". It has something to do with the User Profile / Create Profile POST method. -Fix: In Postman, Create Profile does not have a path 
 
--Error: In v1.collection.json when running node index.js: "Error: Error parsing response example "Transfer GIDR - Success". It has something to do with the User Wallet
+-Error: In v1.collection.json when running node index.js: "Error: Error parsing response example "Transfer GIDR - Success". It has something to do with the User / Wallet POST Transfer GIDR
 -Fix: In Postman, remove extra comma at the end of body in Transfer GIDR - Success
 
 
