@@ -1,9 +1,15 @@
 To Do List
+-Learn Bash Scripting: https://ryanstutorials.net/bash-scripting-tutorial/
+-make a standalone script a .sh file
+-watch zoom video C:\Users\ellio\OneDrive\Desktop\Garuda Admin/Elliot-Elbert-bash-scripting
+-in jagad repo, look at server/start.sh and server/ecosystem.config.cjs and tsc-pm2.json. look for function with RESULT$(bash -c "docker ps -a" container id and container status
+-learn about pm2
+-bash script should do:
+1. rebuild the docker (i may be wrong, but i think you can rebuild docker and use the same container. If cannot, that's okay, delete first and launch new container. You can see how to get container id in server/start.sh)
+2. then, using pm2, we can watch the changes in folder to auto run your script everytime there's changes
+
 -get write access to garuda/jagad repo
--having difficulty creating script to remove container
 
-
-Debug list
 
 
 
@@ -15,5 +21,5 @@ Fixed list
 -Fix: In Postman, remove extra comma at the end of body in Transfer GIDR - Success
 
 
-
+Debug list
 

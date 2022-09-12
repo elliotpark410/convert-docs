@@ -8,7 +8,8 @@
     "docker-build": "docker build . -t garuda-docs-v1",
     "docker-run": "docker run -it --rm -dp 4444:80 garuda-docs-v1",
     "open": "start http://localhost:4444/",
-    "convert": "npm run start && npm run docker-build && npm run docker-run && npm run open"
+    "convert": "npm run start && npm run docker-build && npm run docker-run && npm run open",
+    "docker-remove": "docker rm -f $(docker ps -aqf 'ancestor=garuda-docs-v1')"
   },
   "author": "",
   "license": "ISC",
