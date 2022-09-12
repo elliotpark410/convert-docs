@@ -1,14 +1,15 @@
 To Do List
 -get write access to garuda/jagad repo
--have docker container update with latest output.yaml
-
-
-Debug list
 -having difficulty creating script to remove container
 
 
+Debug list
+
+
+
 Fixed list
--Error: In v1.collection.json when running node index.js: "TypeError: Cannot read properties of undefined (reading 'raw')". It has something to do with the User Profile / Create Profile POST method. -Fix: In Postman, Create Profile does not have a path 
+-Error: In v1.collection.json when running node index.js: "TypeError: Cannot read properties of undefined (reading 'raw')". It has something to do with the User Profile / Create Profile POST method. 
+-Fix: In Postman, Create Profile does not have a path 
 
 -Error: In v1.collection.json when running node index.js: "Error: Error parsing response example "Transfer GIDR - Success". It has something to do with the User / Wallet POST Transfer GIDR
 -Fix: In Postman, remove extra comma at the end of body in Transfer GIDR - Success

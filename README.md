@@ -32,7 +32,7 @@ After running  `npm run convert`, make sure to remove the container before runni
 
 ## Prerequisites
 
-To run this application, I needed:
+To run this application on Windows 11, I needed:
 
 * [NodeJS](https://nodejs.org/en/download/)
 
