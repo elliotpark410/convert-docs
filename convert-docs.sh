@@ -1,0 +1,62 @@
+#!/bin/bash
+
+# assigning variables
+IMAGE_NAME="garuda-docs-image"
+CONTAINER_NAME="garuda-docs-container"
+HOST_PORT=4444
+
+# convert api docs from post_collection.json to output.yaml
+convert_docs() {
+  echo "Converting postman_collection.json file to output.yaml"
+  node ./index.js
+}
+
+# building garuda-docs-image
+docker_build() {
+  echo "Building garuda-docs-image"
+  docker build . -t $IMAGE_NAME
+}
+
+# running garuda-docs-container
+docker_run() {
+  echo "Running garuda-docs-container"
+  docker run --name $CONTAINER_NAME -it --rm -dp $HOST_PORT:80 $IMAGE_NAME  
+}
+
+# opens localhost for preview
+preview() {
+  echo "Opening http://localhost:$HOST_PORT/ to preview doc"
+  start http://localhost:$HOST_PORT/
+}
+
+# if garuda-docs-container exists, then force remove
+docker_remove_container() {
+  # getting garuda-docs-container id 
+  local RESULT=$(bash -c "docker ps -a --filter ancestor=$IMAGE_NAME --format "{{.ID}}"")
+
+  if [ ! -z "$RESULT" ]
+  then
+    echo "garuda-docs-container already exists (Container ID: "$RESULT"). Removing garuda-docs-container"
+    docker rm -f $CONTAINER_NAME
+  fi
+}
+
+# if garuda-docs-image exists, then force remove
+docker_remove_image() {
+  # getting garuda-docs-image id 
+  local RESULT=$(bash -c "docker images $IMAGE_NAME --format "{{.ID}}"")
+
+  if [ ! -z "$RESULT" ]
+  then
+    echo "garuda-docs-image already exists (Image ID: "$RESULT"). Removing garuda-docs-image"
+    docker rmi -f $IMAGE_NAME
+  fi
+}
+
+
+convert_docs
+docker_build
+docker_run
+preview
+docker_remove_container
+docker_remove_image

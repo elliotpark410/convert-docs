@@ -7,14 +7,14 @@
     "start": "node ./index.js",
     "docker-build": "docker build . -t garuda-docs-image",
     "docker-run": "docker run --name garuda-docs-container -it --rm -dp 4444:80 garuda-docs-image",
-    "open": "start http://localhost:4444/",
+    "preview": "start http://localhost:4444/",
     "docker-remove": "docker rm -f garuda-docs-container",
-    "convert": "npm run start && npm run docker-build && npm run docker-run && npm run open && npm run docker-remove"
-    
+    "convert": "npm run start && npm run docker-build && npm run docker-run && npm run preview && npm run docker-remove"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "pm2": "^5.2.0",
     "postman-to-openapi": "^2.4.0"
   }
 }
