@@ -17,15 +17,12 @@ and
 npm run convert
 `
 
-then your browser will open http://localhost:4444/ with a preview 
-
-<br>
-
-After running  `npm run convert`, make sure to remove the container before running it again. You can run this in command line to remove the container: 
-
-`
- docker rm -f $(docker ps -aqf "ancestor=garuda-docs-v1")
-`
+The command will: 
+1. convert postman_collection.json file to output.yaml file
+2. build Docker garuda-docs-image
+3. create Docker garuda-docs-container
+4. open http://localhost:4444/ with a preview
+5. remove garuda-docs-container
 
 <br>
 
