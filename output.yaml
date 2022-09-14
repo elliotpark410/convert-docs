@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   title: v1
   description: >-
-    Welcome to Garuda Stablecoin API Docs.
+    TESTING UPDATE Welcome to Garuda Stablecoin API Docs.
 
     This document is for internal use only. You are prohibited from sharing all
     contents of this documents to any external third party without Elbert's /
