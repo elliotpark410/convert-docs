@@ -8,7 +8,7 @@
     "docker-build": "docker build . -t garuda-docs-image",
     "docker-run": "docker run --name garuda-docs-container -it --rm -dp 4444:80 garuda-docs-image",
     "preview": "start http://localhost:4444/",
-    "docker-remove": "docker rm -f garuda-docs-container",
+    "docker-remove": "docker rm -f garuda-docs-container && docker rmi -f garuda-docs-image",
     "convert": "npm run start && npm run docker-build && npm run docker-run && npm run preview && npm run docker-remove"
   },
   "author": "",
