@@ -32,7 +32,7 @@ preview() {
 # if garuda-docs-container exists, then force remove
 docker_remove_container() {
   # getting garuda-docs-container id 
-  local RESULT=$(bash -c "docker ps -a --filter ancestor=$IMAGE_NAME --format "{{.ID}}"")
+  local RESULT=$(bash -c "docker ps -aqf "name=$CONTAINER_NAME"")
 
   if [ ! -z "$RESULT" ]
   then

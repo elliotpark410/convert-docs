@@ -1,4 +1,7 @@
 To Do List
+-learn pm2
+-refactor convert-docs.sh
+
 -watch zoom video C:\Users\ellio\OneDrive\Desktop\Garuda Admin/Elliot-Elbert-bash-scripting
 -Learn Bash Scripting: https://ryanstutorials.net/bash-scripting-tutorial/
 -Learn about pm2
