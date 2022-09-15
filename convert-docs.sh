@@ -13,6 +13,24 @@ convert_docs() {
 
 # building garuda-docs-image
 docker_build() {
+  # getting garuda-docs-container id 
+  local CONTAINER_RESULT=$(bash -c "docker ps -aqf "name=$CONTAINER_NAME"")
+
+  # getting garuda-docs-image id 
+  local IMAGE_RESULT=$(bash -c "docker images $IMAGE_NAME --format "{{.ID}}"")
+
+  if [ ! -z "$CONTAINER_RESULT" ]
+  then
+    echo "garuda-docs-container already exists (Container ID: "$CONTAINER_RESULT"). Removing garuda-docs-container"
+    docker rm -f $CONTAINER_NAME
+  fi
+
+  if [ ! -z "$IMAGE_RESULT" ]
+  then
+    echo "garuda-docs-image already exists (Image ID: "$IMAGE_RESULT"). Removing garuda-docs-image"
+    docker rmi -f $IMAGE_NAME
+  fi
+
   echo "Building garuda-docs-image"
   docker build . -t $IMAGE_NAME
 }
@@ -32,11 +50,11 @@ preview() {
 # if garuda-docs-container exists, then force remove
 docker_remove_container() {
   # getting garuda-docs-container id 
-  local RESULT=$(bash -c "docker ps -aqf "name=$CONTAINER_NAME"")
+  local CONTAINER_RESULT=$(bash -c "docker ps -aqf "name=$CONTAINER_NAME"")
 
-  if [ ! -z "$RESULT" ]
+  if [ ! -z "$CONTAINER_RESULT" ]
   then
-    echo "garuda-docs-container already exists (Container ID: "$RESULT"). Removing garuda-docs-container"
+    echo "garuda-docs-container already exists (Container ID: "$CONTAINER_RESULT"). Removing garuda-docs-container"
     docker rm -f $CONTAINER_NAME
   fi
 }
@@ -44,11 +62,11 @@ docker_remove_container() {
 # if garuda-docs-image exists, then force remove
 docker_remove_image() {
   # getting garuda-docs-image id 
-  local RESULT=$(bash -c "docker images $IMAGE_NAME --format "{{.ID}}"")
+  local IMAGE_RESULT=$(bash -c "docker images $IMAGE_NAME --format "{{.ID}}"")
 
-  if [ ! -z "$RESULT" ]
+  if [ ! -z "$IMAGE_RESULT" ]
   then
-    echo "garuda-docs-image already exists (Image ID: "$RESULT"). Removing garuda-docs-image"
+    echo "garuda-docs-image already exists (Image ID: "$IMAGE_RESULT"). Removing garuda-docs-image"
     docker rmi -f $IMAGE_NAME
   fi
 }
@@ -60,3 +78,5 @@ docker_run
 preview
 docker_remove_container
 docker_remove_image
+
+exit 0
