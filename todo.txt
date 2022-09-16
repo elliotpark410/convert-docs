@@ -25,3 +25,5 @@ Fixed list
 -Error: In v1.collection.json when running node index.js: "Error: Error parsing response example "Transfer GIDR - Success". It has something to do with the User / Wallet POST Transfer GIDR
 -Fix: In Postman, remove extra comma at the end of body in Transfer GIDR - Success
 
+Things I Tried: 
+-adding nohup (no hang up) before node ./index.js

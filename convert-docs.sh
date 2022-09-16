@@ -13,11 +13,11 @@ convert_docs() {
 
 # building garuda-docs-image
 docker_build() {
-  # getting garuda-docs-container id 
+  #getting garuda-docs-container id 
   local CONTAINER_RESULT=$(bash -c "docker ps -aqf "name=$CONTAINER_NAME"")
 
-  # getting garuda-docs-image id 
-  local IMAGE_RESULT=$(bash -c "docker images $IMAGE_NAME --format "{{.ID}}"")
+  # # getting garuda-docs-image id 
+  # local IMAGE_RESULT=$(bash -c "docker images $IMAGE_NAME --format "{{.ID}}"")
 
   if [ ! -z "$CONTAINER_RESULT" ]
   then
@@ -25,11 +25,11 @@ docker_build() {
     docker rm -f $CONTAINER_NAME
   fi
 
-  if [ ! -z "$IMAGE_RESULT" ]
-  then
-    echo "garuda-docs-image already exists (Image ID: "$IMAGE_RESULT"). Removing garuda-docs-image"
-    docker rmi -f $IMAGE_NAME
-  fi
+  # if [ ! -z "$IMAGE_RESULT" ]
+  # then
+  #   echo "garuda-docs-image already exists (Image ID: "$IMAGE_RESULT"). Removing garuda-docs-image"
+  #   docker rmi -f $IMAGE_NAME
+  # fi
 
   echo "Building garuda-docs-image"
   docker build . -t $IMAGE_NAME
@@ -72,6 +72,7 @@ docker_remove_image() {
 }
 
 
+
 convert_docs
 docker_build
 docker_run
@@ -79,4 +80,8 @@ preview
 docker_remove_container
 docker_remove_image
 
-exit 0
+#  preventing script from ever exiting 
+ while true 
+ do
+  sleep 5
+ done

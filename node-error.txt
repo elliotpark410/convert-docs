@@ -1,0 +1,13 @@
+0|postmancollection  | node:child_process:173
+0|postmancollection  |   p.open(fd);
+0|postmancollection  |     ^
+0|postmancollection  |
+0|postmancollection  | Error: EBADF: bad file descriptor, uv_pipe_open
+0|postmancollection  |     at Object._forkChild (node:child_process:173:5)
+0|postmancollection  |     at setupChildProcessIpcChannel (node:internal/bootstrap/pre_execution:451:30)
+0|postmancollection  |     at prepareMainThreadExecution (node:internal/bootstrap/pre_execution:71:3)
+0|postmancollection  |     at node:internal/main/run_main_module:7:1 {
+0|postmancollection  |   errno: -4083,
+0|postmancollection  |   code: 'EBADF',
+0|postmancollection  |   syscall: 'uv_pipe_open'
+0|postmancollection  | }
