@@ -3,7 +3,7 @@
 # assigning variables
 IMAGE_NAME="garuda-docs-image"
 CONTAINER_NAME="garuda-docs-container"
-HOST_PORT=4444
+HOST_PORT=4442
 
 # convert api docs from post_collection.json to output.yaml
 convert_docs() {
@@ -16,8 +16,8 @@ docker_build() {
   #getting garuda-docs-container id 
   local CONTAINER_RESULT=$(bash -c "docker ps -aqf "name=$CONTAINER_NAME"")
 
-  # # getting garuda-docs-image id 
-  # local IMAGE_RESULT=$(bash -c "docker images $IMAGE_NAME --format "{{.ID}}"")
+  # getting garuda-docs-image id 
+  local IMAGE_RESULT=$(bash -c "docker images $IMAGE_NAME --format "{{.ID}}"")
 
   if [ ! -z "$CONTAINER_RESULT" ]
   then
@@ -25,11 +25,11 @@ docker_build() {
     docker rm -f $CONTAINER_NAME
   fi
 
-  # if [ ! -z "$IMAGE_RESULT" ]
-  # then
-  #   echo "garuda-docs-image already exists (Image ID: "$IMAGE_RESULT"). Removing garuda-docs-image"
-  #   docker rmi -f $IMAGE_NAME
-  # fi
+  if [ ! -z "$IMAGE_RESULT" ]
+  then
+    echo "garuda-docs-image already exists (Image ID: "$IMAGE_RESULT"). Removing garuda-docs-image"
+    docker rmi -f $IMAGE_NAME
+  fi
 
   echo "Building garuda-docs-image"
   docker build . -t $IMAGE_NAME
@@ -73,7 +73,7 @@ docker_remove_image() {
 
 
 
-convert_docs
+# convert_docs
 docker_build
 docker_run
 preview

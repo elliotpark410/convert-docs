@@ -27,3 +27,55 @@ Fixed list
 
 Things I Tried: 
 -adding nohup (no hang up) before node ./index.js
+-adding "node ./index.js" inside $() in convert-docs.sh
+-adding "node ./index.js" inside OUTPUT=$() in convert-docs.sh
+-adding npm run start to script in ecosystem.config.js
+-adding node ./index.js to script in ecosystem.config.js
+-tried creating a separte script in ecosystem.config.js that looked liked: 
+{
+  name    : "convert",
+  cwd     : "./index.js",
+  script  : "node", 
+  arg     : "./ index.js",
+  watch   : ["./v1.postman_collection.json"],
+  watch_delay : 5000,
+  env:{
+    NODE_ENV: "development"
+  }
+}
+
+and 
+
+
+{
+  name    : "convert",
+  cwd     : "./index.js",
+  script  : "npm", 
+  arg     : "start",
+  watch   : ["./v1.postman_collection.json"],
+  watch_delay : 5000,
+  env:{
+    NODE_ENV: "development"
+  }
+}
+
+
+and 
+
+
+{
+  name    : "convert",
+  script  : "./convert.sh",
+  watch   : ["./v1.postman_collection.json"],
+  watch_delay : 5000
+}
+
+
+
+WORKS, BUT IT KEEPS ON REPEATING node ./index.js
+{
+  name    : "convert",
+  script  : "./index.js", 
+  watch   : ["./v1.postman_collection.json"],
+  watch_delay : 10000
+}
