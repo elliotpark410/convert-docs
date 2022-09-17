@@ -3,7 +3,7 @@ module.exports = {
     {
       name    : "convert-docs",
       script  : "./index.js", 
-      watch   : ["./v1.postman_collection.json"],
+      watch   : ["./postman_collection"],
       watch_delay : 5000,
       autorestart : false
     },

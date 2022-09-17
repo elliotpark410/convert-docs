@@ -3,12 +3,13 @@ const postmanToOpenApi = require('postman-to-openapi');
 
 // Require file system module to get postman collection in cd
 const fs = require('fs');
+const postmanDirectory = './postman_collection/';
 
 // function to get postman collection
 function getPostmanCollection() {
  
     // Reads the contents of current directory
-    const files = fs.readdirSync('./')
+    const files = fs.readdirSync('./postman_collection')
     
     // Gets file name with "postman_collection.json"
     for (let i = 0; i < files.length; i++) {
@@ -21,7 +22,8 @@ function getPostmanCollection() {
 
 async function main() {
     // postmanCollection = file name with "postman_collection.json"
-    const postmanCollection = getPostmanCollection();
+    const postmanCollection = postmanDirectory + getPostmanCollection();
+    // console.log(postmanCollection)
     
     // Console error if File With "postman_collection.json" is Not in Current Directory
     if (postmanCollection === undefined) {
