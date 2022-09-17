@@ -3,7 +3,7 @@
 # assigning variables
 IMAGE_NAME="garuda-docs-image"
 CONTAINER_NAME="garuda-docs-container"
-HOST_PORT=4445
+HOST_PORT=4444
 
 # convert api docs from post_collection.json to output.yaml
 convert_docs() {
