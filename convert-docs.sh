@@ -3,13 +3,7 @@
 # assigning variables
 IMAGE_NAME="garuda-docs-image"
 CONTAINER_NAME="garuda-docs-container"
-HOST_PORT=4444
-
-# convert api docs from post_collection.json to output.yaml
-convert_docs() {
-  echo "Converting postman_collection.json file to output.yaml"
-  node ./index.js
-}
+HOST_PORT=3331
 
 # building garuda-docs-image
 docker_build() {
@@ -72,8 +66,6 @@ docker_remove_image() {
 }
 
 
-
-# convert_docs
 docker_build
 docker_run
 preview

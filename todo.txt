@@ -1,21 +1,7 @@
 To Do List
--watch zoom video C:\Users\ellio\OneDrive\Desktop\Garuda Admin/Elliot-Elbert-bash-scripting
--Learn Bash Scripting: https://ryanstutorials.net/bash-scripting-tutorial/
--Learn  pm2
--in jagad repo, look at server/start.sh and server/ecosystem.config.cjs and tsc-pm2.json
--bash script should do:
-1. rebuild the docker 
-2. then, using pm2, watch changes in postman collection folder to auto run your script everytime there are changes
--get write access to garuda/jagad repo
 
 
 Debug list
--pm2 continues to exit and re-run script instead of waiting for changes
--Error: 
-[postmancollection:0] exited with code [0] via signal [SIGINT]
-[postmancollection:0] starting in -fork mode-
-Error caught while calling pidusage
-Error: No matching pid found
 
 
 Fixed list
@@ -25,7 +11,17 @@ Fixed list
 -Error: In v1.collection.json when running node index.js: "Error: Error parsing response example "Transfer GIDR - Success". It has something to do with the User / Wallet POST Transfer GIDR
 -Fix: In Postman, remove extra comma at the end of body in Transfer GIDR - Success
 
-Things I Tried: 
+-Error: pm2 continues to exit and re-run script instead of waiting for changes. Elbert told me it is because convet-docs.sh is exiting so add a while loop so it never exits 
+-Fix: In convert-docs.sh, delete `exit 0` and add 
+`
+while true 
+ do
+  sleep 5
+ done
+ ` 
+
+
+Things I Tried To Fix pm2 Node ./index.js Error: 
 -adding nohup (no hang up) before node ./index.js
 -adding "node ./index.js" inside $() in convert-docs.sh
 -adding "node ./index.js" inside OUTPUT=$() in convert-docs.sh
