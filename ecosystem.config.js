@@ -9,7 +9,7 @@ module.exports = {
     },
     {
       name    : "preview",
-      script  : "./convert-docs.sh", 
+      script  : "./peview-docs.sh", 
       watch   : ["./output.yaml"],
       watch_delay : 5000,
     }
