@@ -1,7 +1,7 @@
 module.exports = {
   apps : [
     {
-      name    : "convert-docs",
+      name    : "convert",
       script  : "./index.js", 
       watch   : ["./postman_collection"],
       watch_delay : 5000,
@@ -9,7 +9,7 @@ module.exports = {
     },
     {
       name    : "preview",
-      script  : "./peview-docs.sh", 
+      script  : "./preview-docs.sh", 
       watch   : ["./output.yaml"],
       watch_delay : 5000,
     }

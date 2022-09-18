@@ -26,7 +26,7 @@ The command will:
 2. convert postman_collection.json file to output.yaml file
 3. build Docker garuda-docs-image
 4. create Docker garuda-docs-container
-5. open http://localhost:4444/ with a preview
+5. open http://localhost:3333/ with a preview
 6. remove garuda-docs-container
 
 <br>

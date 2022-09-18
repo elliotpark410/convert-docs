@@ -25,9 +25,9 @@ EXPOSE 80
 # . if the PATH is period, then all the files in local directory get sent to the Docker daemon
 # -t is a tag name 
 
-# Command line: docker run -it --rm -dp 4444:80 garuda-docs-v1
+# Command line: docker run -it --rm -dp 3333:80 garuda-docs-v1
 # Docker creates a writeable container layer over the specified image
 # --rm automatically removes the container when it exits
 # -d option will have the container run in detached mode in the background
 # -p option is used to export the ports 
-# in this example, port 4444 will be the Docker host to access the container and the 80 is the port used by the application
+# in this example, port 3333 will be the Docker host to access the container and the 80 is the port used by the application
