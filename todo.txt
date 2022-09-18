@@ -68,7 +68,7 @@ and
 
 
 
-WORKS, BUT IT KEEPS ON REPEATING node ./index.js
+works, but it keeps on repeating node ./index.js
 {
   name    : "convert",
   script  : "./index.js", 

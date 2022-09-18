@@ -5,7 +5,7 @@ Converts _.postman_collection.json to an output.yaml and previews it via ReDoc D
 
 ## Usage Instructions
 
-Start by exporting a Postman collection to this directory, then use the following in command line:
+Start by going to command line and enter:
 
 `
 npm install 
@@ -14,15 +14,20 @@ npm install
 and
 
 `
-npm run convert
+pm2 start ecosystem.config.js
 `
 
+then export a Postman collection to postman_collection directory
+
+
+
 The command will: 
-1. convert postman_collection.json file to output.yaml file
-2. build Docker garuda-docs-image
-3. create Docker garuda-docs-container
-4. open http://localhost:4444/ with a preview
-5. remove garuda-docs-container
+1. pm2 will capture the change in the directory, then run node ./index.js and convert-docs.sh
+2. convert postman_collection.json file to output.yaml file
+3. build Docker garuda-docs-image
+4. create Docker garuda-docs-container
+5. open http://localhost:4444/ with a preview
+6. remove garuda-docs-container
 
 <br>
 

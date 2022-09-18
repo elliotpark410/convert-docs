@@ -3,7 +3,7 @@
 # assigning variables
 IMAGE_NAME="garuda-docs-image"
 CONTAINER_NAME="garuda-docs-container"
-HOST_PORT=3331
+HOST_PORT=4444
 
 # building garuda-docs-image
 docker_build() {

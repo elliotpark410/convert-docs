@@ -4,13 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node ./index.js",
-    "docker-build": "docker build . -t garuda-docs-image",
-    "docker-run": "docker run --name garuda-docs-container -it --rm -dp 4444:80 garuda-docs-image",
-    "preview": "start http://localhost:4444/",
-    "docker-remove": "docker rm -f garuda-docs-container && docker rmi -f garuda-docs-image",
-    "tconvert": "npm run start && npm run docker-build && npm run docker-run && npm run preview && npm run docker-remove",
-    "convert": "npm start && pm2 start ecosystem.config.js --attach"
+    "start": "node ./index.js"
   },
   "author": "",
   "license": "ISC",
