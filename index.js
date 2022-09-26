@@ -4,6 +4,7 @@ const postmanToOpenApi = require('postman-to-openapi');
 // Require file system module to get postman collection in cd
 const fs = require('fs');
 const path = require('path');
+const { exit } = require('process');
 const postmanDirectory = './postman_collection/';
 
 // function to get most recent postman collection
@@ -53,4 +54,6 @@ async function main() {
     })
 }
 
-main()
+main().then(() => {
+  exit(0)
+}).catch(err => console.log(err))
