@@ -6,21 +6,28 @@ const fs = require('fs');
 const path = require('path');
 const postmanDirectory = './postman_collection/';
 
-// function to get postman collection
+// function to get most recent postman collection
 function getPostmanCollection() {
- 
-    // Reads the contents of current directory
-    const files = fs.readdirSync('./postman_collection')
-    
-    // Gets file name with "postman_collection.json"
-    for (let i = 0; i < files.length; i++) {
-      if (files[i].includes("postman_collection.json")) {
-        console.log('Postman Collection file: ' + files[i])
-        return path.join(postmanDirectory, files[i]);
-      }
-    }
-}
 
+  const files = fs.readdirSync(postmanDirectory)    
+  let filesArray = []
+
+  files.forEach((postmanFile) => {
+    if (postmanFile.includes("postman_collection")) {
+      let stats = fs.statSync(postmanDirectory + postmanFile)
+      filesArray.push({
+        "file":postmanFile, 
+        "mtime": stats.mtime.getTime()
+      })
+    }
+  })
+
+  filesArray.sort((a,b) => {
+    return b.mtime - a.mtime
+  })
+
+  return path.join(postmanDirectory, filesArray[0].file)
+}
 
 
 async function main() {

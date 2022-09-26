@@ -14,7 +14,7 @@ npm install
 and
 
 `
-pm2 start ecosystem.config.js
+npm start
 `
 
 then export a Postman collection to postman_collection directory
@@ -26,8 +26,8 @@ The command will:
 2. convert postman_collection.json file to output.yaml file
 3. build Docker garuda-docs-image
 4. create Docker garuda-docs-container
-5. open http://localhost:3333/ with a preview
-6. remove garuda-docs-container
+5. open http://localhost:3333/ with a preview. Please refresh page to see latest and greatest
+
 
 <br>
 

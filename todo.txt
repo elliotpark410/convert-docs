@@ -1,4 +1,17 @@
 To Do List
+-create if statement to get latest file 
+-create script to preview and refresh url
+-package.json script start: "pm2 start ecosystem.config.js"
+-update README.md
+-create branch with comments and clean up comments in main
+-add to docs repo, pull request to main
+
+
+
+Elbert's changes
+-add run convert in preview.
+-exit(0) in preview-docs.sh
+-delete the remove container and image in preview.sh
 
 
 Debug list
@@ -12,7 +25,7 @@ Fixed list
 -Fix: In Postman, remove extra comma at the end of body in Transfer GIDR - Success
 
 -Error: pm2 continues to exit and re-run script instead of waiting for changes. Elbert told me it is because convet-docs.sh is exiting so add a while loop so it never exits 
--Fix: In convert-docs.sh, delete `exit 0` and add 
+-Fix: In convert-docs.sh, remove `exit 0` and add 
 `
 while true 
  do
