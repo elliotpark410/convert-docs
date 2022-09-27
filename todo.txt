@@ -1,16 +1,12 @@
 To Do List
--create if statement to get latest file 
--create script to preview and refresh url
--package.json script start: "pm2 start ecosystem.config.js"
 -update README.md
 -create branch with comments and clean up comments in main
 -add to docs repo, pull request to main
 
 
-
 Elbert's changes
 -add run convert in preview.
--exit(0) in preview-docs.sh
+-exit(0) index.js
 -delete the remove container and image in preview.sh
 
 

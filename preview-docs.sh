@@ -9,7 +9,7 @@ HOST_PORT=4444
 # convert postmancollection.json to output.yaml
 convert() {
   echo "Converting postman collection.json to output.yaml"
-  node ./index.js
+  node index.js
 }
 
 
@@ -17,9 +17,6 @@ convert() {
 docker_build() {
   #getting garuda-docs-container id 
   local CONTAINER_RESULT=$(bash -c "docker ps -aqf "name=$CONTAINER_NAME"")
-
-  # getting garuda-docs-image id 
-  local IMAGE_RESULT=$(bash -c "docker images $IMAGE_NAME --format "{{.ID}}"")
 
   if [ ! -z "$CONTAINER_RESULT" ]
   then
@@ -42,7 +39,6 @@ docker_run() {
 preview() {
   echo "Opening http://localhost:$HOST_PORT/ to preview doc"
   start http://localhost:$HOST_PORT/
-  xdotool key ctrl+r
 }
 
 
@@ -50,8 +46,7 @@ convert
 docker_build
 docker_run
 preview
-# docker_remove_container
-# docker_remove_image
+
 
 #  preventing script from ever exiting 
  while true 

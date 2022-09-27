@@ -1,0 +1,26 @@
+
+---Node.js Child Process is a command that accepts a string which is the command to run arguments
+0|preview  | node:child_process:173
+
+
+
+---Is passing in values for arguments 
+0|preview  |   p.open(fd);
+0|preview  |     ^
+0|preview  |
+
+
+---Bad File Descriptor usually means that I'm calling an operation on a file descriptor that is no longer in the correct state to handle that operation (like reading a closed file, opening a file that has been deleted)
+
+---Pipe refers to pipeline for streaming files
+0|preview  | Error: EBADF: bad file descriptor, uv_pipe_open
+0|preview  |     at Object._forkChild (node:child_process:173:5)
+0|preview  |     at setupChildProcessIpcChannel (node:internal/bootstrap/pre_execution:451:30)
+0|preview  |     at prepareMainThreadExecution (node:internal/bootstrap/pre_execution:71:3)
+0|preview  |     at node:internal/main/run_main_module:7:1 {
+0|preview  |   errno: -4083,
+0|preview  |   code: 'EBADF',
+0|preview  |   syscall: 'uv_pipe_open'
+0|preview  | }
+
+---Could have something to do with WSL?

@@ -4,7 +4,7 @@ module.exports = {
       name    : "preview",
       script  : "./preview-docs.sh", 
       watch   : ["./postman_collection"],
-      watch_delay : 5000,
+      watch_delay : 5000
     }
   ]
 }

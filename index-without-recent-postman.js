@@ -11,27 +11,16 @@ const postmanDirectory = './postman_collection/';
 function getPostmanCollection() {
 
   const files = fs.readdirSync(postmanDirectory)    
-  let filesArray = []
 
-  files.forEach((postmanFile) => {
-    if (postmanFile.includes("postman_collection")) {
-      let stats = fs.statSync(postmanDirectory + postmanFile)
-      filesArray.push({
-        "file":postmanFile, 
-        "mtime": stats.mtime.getTime()
-      })
+  for (let i = 0; i < files.length; i++) {
+    if (files[i].includes("postman_collection.json")) {
+      console.log('Postman Collection file: ' + files[i])
+      return path.join(postmanDirectory, files[i]);
     }
-  })
-
-  filesArray.sort((a,b) => {
-    return b.mtime - a.mtime
-  })
-  console.log(filesArray)
-  return path.join(postmanDirectory, filesArray[0].file)
+  }
 }
 
-console.log('Most recent postman collection by modified timestamp: ' + getPostmanCollection())
-
+console.log(getPostmanCollection())
 async function main() {
     // postmanCollection = file name with "postman_collection.json"
     const postmanCollection = getPostmanCollection();
