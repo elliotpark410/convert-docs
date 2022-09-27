@@ -5,7 +5,7 @@ const postmanToOpenApi = require('postman-to-openapi');
 const fs = require('fs');
 const path = require('path');
 const { exit } = require('process');
-const postmanDirectory = './postman_collection/';
+const postmanDirectory = './postman_collections/';
 
 // function to get most recent postman collection
 function getPostmanCollection() {
