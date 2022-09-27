@@ -22,11 +22,11 @@ then export a Postman collection to postman_collection directory
 
 
 The command will: 
-1. pm2 will capture the change in the directory, then run node ./index.js and convert-docs.sh
-2. convert postman_collection.json file to output.yaml file
-3. build Docker garuda-docs-image
+1. pm2 will capture the change in the postman_collection directory, then run preview-docs.sh
+2. node index.js which will convert postman_collection.json file to output.yaml file
+3. build Docker garuda-docs-image and remove garuda-docs-container if it exists
 4. create Docker garuda-docs-container
-5. open http://localhost:3333/ with a preview. Please refresh page to see latest and greatest
+5. open http://localhost:4444/ with a preview. Please refresh page to see latest and greatest
 
 
 <br>

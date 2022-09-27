@@ -1,9 +1,6 @@
 To Do List
--create if statement to get latest file 
--create script to preview and refresh url
--package.json script start: "pm2 start ecosystem.config.js"
--update README.md
--create branch with comments and clean up comments in main
+
+reate branch with comments and clean up comments in main
 -add to docs repo, pull request to main
 
 
