@@ -18,9 +18,6 @@ docker_build() {
   #getting garuda-docs-container id 
   local CONTAINER_RESULT=$(bash -c "docker ps -aqf "name=$CONTAINER_NAME"")
 
-  # getting garuda-docs-image id 
-  local IMAGE_RESULT=$(bash -c "docker images $IMAGE_NAME --format "{{.ID}}"")
-
   if [ ! -z "$CONTAINER_RESULT" ]
   then
     echo "garuda-docs-container already exists (Container ID: "$CONTAINER_RESULT"). Removing garuda-docs-container"
