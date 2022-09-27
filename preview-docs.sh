@@ -9,7 +9,7 @@ HOST_PORT=4444
 # convert postmancollection.json to output.yaml
 convert() {
   echo "Converting postman collection.json to output.yaml"
-  node ./index.js
+  node index.js
 }
 
 
@@ -42,7 +42,6 @@ docker_run() {
 preview() {
   echo "Opening http://localhost:$HOST_PORT/ to preview doc"
   start http://localhost:$HOST_PORT/
-  xdotool key ctrl+r
 }
 
 
