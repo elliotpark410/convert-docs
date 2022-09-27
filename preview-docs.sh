@@ -49,8 +49,6 @@ convert
 docker_build
 docker_run
 preview
-# docker_remove_container
-# docker_remove_image
 
 #  preventing script from ever exiting 
  while true 
